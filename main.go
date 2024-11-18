@@ -42,3 +42,7 @@ func main() {
 
 	router.Run(":8080")
 }
+
+// TODO 1. finish service data model
+// TODO 2. finish job data model
+// TODO 3. slim down docker container size using multi-stage builds

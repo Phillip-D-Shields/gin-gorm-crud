@@ -68,7 +68,7 @@ func (mc *MaterialController) Update(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	material.ID = intID
+	material.ID = uint(intID)
 	err = mc.service.Update(&material)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
