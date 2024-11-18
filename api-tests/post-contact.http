@@ -1,0 +1,10 @@
+POST http://localhost:8080/api/v1/contacts
+Content-Type: application/json
+
+{
+  "first_name": "Phillip",
+  "last_name": "Shields",
+  "email": "phill00@email.com",
+  "phone": "123-456-7890",
+  "notes": "This is a test contact for the db"
+}

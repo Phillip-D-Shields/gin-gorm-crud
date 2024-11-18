@@ -1,22 +1,41 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gin-gonic/gin"
+	"github.com/phillip-d-shields/gin-gorm-crud/config"
+	"github.com/phillip-d-shields/gin-gorm-crud/controllers"
+	"github.com/phillip-d-shields/gin-gorm-crud/models"
+	"github.com/phillip-d-shields/gin-gorm-crud/routes"
 	"github.com/phillip-d-shields/gin-gorm-crud/services"
 )
 
 func main() {
+	db, err := config.NewDatabase()
+	if err != nil {
+		log.Fatal("failed to connect to database: ", err)
+	}
 
-	services.InitDB()
-	services.SeedMockData()
+	// migrate models
+	err = db.DB.AutoMigrate(&models.Contact{}, &models.Company{})
+	if err != nil {
+		log.Fatal("failed to migrate models: ", err)
+	}
 
-	r := gin.Default()
+	// init services
+	contactService := services.NewContactService(db.DB)
+	companyService := services.NewCompanyService(db.DB)
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "kia ora",
-		})
-	})
+	// init controllers
+	contactController := controllers.NewContactController(contactService)
+	companyController := controllers.NewCompanyController(companyService)
 
-	r.Run(":8080")
+	router := gin.Default()
+
+	// setup routes
+	routes.SetupContactRoutes(router, contactController)
+	routes.SetupCompanyRoutes(router, companyController)
+
+	router.Run(":8080")
 }

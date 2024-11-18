@@ -4,7 +4,6 @@ import "gorm.io/gorm"
 
 type Company struct {
 	gorm.Model
-	ID                 uint   `json:"id" gorm:"primary_key"`
 	Name               string `json:"name" gorm:"unique"`
 	BillingAddress     string `json:"billing_address"`
 	ShippingAddress    string `json:"shipping_address"`
