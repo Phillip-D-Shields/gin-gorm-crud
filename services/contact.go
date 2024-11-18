@@ -1,8 +1,9 @@
 package services
 
 import (
-	"github.com/phillip-d-shields/gin-gorm-crud/models"
 	"gorm.io/gorm"
+
+	"github.com/phillip-d-shields/gin-gorm-crud/models"
 )
 
 type ContactService struct {

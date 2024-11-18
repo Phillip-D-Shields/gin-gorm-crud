@@ -35,3 +35,16 @@ func SetupCompanyRoutes(router *gin.Engine, cc *CompanyController) {
 		v1.DELETE("/companies/:id", cc.Delete)
 	}
 }
+
+func SetupMaterialRoutes(router *gin.Engine, mc *MaterialController) {
+
+	v1 := router.Group("/api/v1")
+	{
+		// materials
+		v1.GET("/materials", mc.GetAll)
+		v1.GET("/materials/:id", mc.GetByID)
+		v1.POST("/materials", mc.Create)
+		v1.PUT("/materials/:id", mc.Update)
+		v1.DELETE("/materials/:id", mc.Delete)
+	}
+}

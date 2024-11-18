@@ -26,16 +26,19 @@ func main() {
 	// init services
 	contactService := services.NewContactService(db.DB)
 	companyService := services.NewCompanyService(db.DB)
+	materialService := services.NewMaterialService(db.DB)
 
 	// init controllers
 	contactController := controllers.NewContactController(contactService)
 	companyController := controllers.NewCompanyController(companyService)
+	materialController := controllers.NewMaterialController(materialService)
 
 	router := gin.Default()
 
 	// setup routes
 	routes.SetupContactRoutes(router, contactController)
 	routes.SetupCompanyRoutes(router, companyController)
+	routes.SetupMaterialRoutes(router, materialController)
 
 	router.Run(":8080")
 }
