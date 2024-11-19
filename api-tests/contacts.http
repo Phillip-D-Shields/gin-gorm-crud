@@ -1,0 +1,43 @@
+@Localhost = http://localhost:8080/api/v1
+
+# get all contacts
+GET {{ Localhost }}/contacts
+
+###
+
+# get contact by id
+GET {{ Localhost }}/contacts/1
+
+###
+
+# create contact
+POST {{ Localhost }}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "Phillip",
+  "last_name": "Shields",
+  "email": "phill00@email.com",
+  "phone": "123-456-7890",
+  "notes": "This is a test contact for the db"
+}
+
+###
+
+# update contact
+PUT {{ Localhost }}/contacts/1
+Content-Type: application/json
+
+{
+  "first_name": "Phillip",
+  "last_name": "Shields",
+  "email": "phill77@email.com",
+  "phone": "123-456-7890",
+  "notes": "This is an update for the test contact"
+}
+
+
+###
+
+# delete contact
+DELETE {{ Localhost }}/contacts/1

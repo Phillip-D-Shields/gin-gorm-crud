@@ -1,0 +1,30 @@
+# Version control
+.git
+.gitignore
+
+# IDE files
+.idea
+.vscode
+*.swp
+*.swo
+
+# Build files
+bin/
+tmp/
+
+# Test files
+*_test.go
+*.test
+
+# Local development
+README.md
+Dockerfile
+docker-compose.yml
+.env
+.env.*
+
+# Go specific
+vendor/
+
+# Keep the data directory for SQLite
+!data/

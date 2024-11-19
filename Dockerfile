@@ -1,15 +1,43 @@
-FROM golang:1.23-alpine
+# First stage: Build the application
+FROM golang:1.23-alpine AS builder
 
-WORKDIR /user/src/app
+WORKDIR /build
 
+# Install build dependencies
 ENV CGO_ENABLED=1
-RUN apk add --no-cache gcc musl-dev
+RUN apk update && \
+    apk add --no-cache \
+    build-base \
+    gcc \
+    wget \
+    git
 
-# pre-copy/cache go.mod for better layer caching for subsequent builds
+# Copy and download dependencies
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
+# Copy source code
 COPY . .
-RUN go build -v -o /usr/local/bin/app .
 
-CMD ["app"]
+# Build the application
+RUN go build -v -o app .
+
+# Second stage: Create the final image
+FROM alpine:3.18
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk update && \
+    apk add --no-cache \
+    sqlite \
+    sqlite-libs
+
+# Copy the binary from builder
+COPY --from=builder /build/app .
+
+# Create data directory structure only
+RUN mkdir -p /data && \
+    chmod 777 /data
+
+ENTRYPOINT ["./app"]

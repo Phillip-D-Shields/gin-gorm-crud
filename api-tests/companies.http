@@ -1,0 +1,47 @@
+@Localhost = http://localhost:8080/api/v1
+
+# get all companies
+GET {{ Localhost }}/companies
+
+###
+
+# get company by id
+GET {{ Localhost }}/companies/1
+
+###
+
+# create company
+POST {{ Localhost }}/companies
+Content-Type: application/json
+
+{
+  "name": "Test Company",
+  "shipping_address": "123 Test St, Nowheresville, NZ 1234",
+  "billing_address": "123 Test St, Nowheresville, NZ 1234",
+  "phone": "123-456-7890",
+  "email": "test.company@email.com",
+  "primary_contact_id": 1,
+  "notes": "This is a test company for the db"
+}
+
+###
+
+# update company
+PUT {{ Localhost }}/companies/1
+Content-Type: application/json
+
+{
+  "name": "Test Company 77",
+  "shipping_address": "123 Test St, Nowheresville, NZ 1234",
+  "billing_address": "321 Test St, Nowheresville, NZ 1234",
+  "phone": "123-456-7890",
+  "email": "test.company77@email.com",
+  "primary_contact_id": 1,
+  "notes": "UPDATED"
+}
+
+###
+
+# delete company
+DELETE {{ Localhost }}/companies/1
+

@@ -1,6 +1,9 @@
 package config
 
 import (
+	"os"
+	"path/filepath"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -10,7 +13,14 @@ type Database struct {
 }
 
 func NewDatabase() (*Database, error) {
-	db, err := gorm.Open(sqlite.Open("data/cms.db"), &gorm.Config{})
+	dbPath := "/data/cms.db"
+
+	// verify the directory exists
+	if err := os.MkdirAll(filepath.Dir(dbPath), 0755); err != nil {
+		return nil, err
+	}
+
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}

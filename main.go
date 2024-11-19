@@ -18,7 +18,7 @@ func main() {
 	}
 
 	// migrate models
-	err = db.DB.AutoMigrate(&models.Contact{}, &models.Company{})
+	err = db.DB.AutoMigrate(&models.Contact{}, &models.Company{}, &models.Material{})
 	if err != nil {
 		log.Fatal("failed to migrate models: ", err)
 	}
